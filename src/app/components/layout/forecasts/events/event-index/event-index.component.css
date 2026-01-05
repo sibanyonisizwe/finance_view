@@ -1,0 +1,11 @@
+.event-btns{
+  width: 300px;
+  margin-right: 10px;
+  padding: 10px;
+}
+
+.event-inputs{
+  width: 500px;
+  height: fit-content;
+  bottom: 0;
+}

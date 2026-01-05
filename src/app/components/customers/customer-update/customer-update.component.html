@@ -1,0 +1,106 @@
+<div *ngIf="isDataAvailable">
+  <div>
+    <form id="newCustomerForm" [formGroup]="customerUpdateForm">
+      <div class="form-group">
+        <h3 class="text-primary"><i
+          class="fa-solid fa-pen-to-square"></i>
+          Customer
+          Details</h3>
+      </div>
+      <div class="form-group">
+        <label for="name">Customer Name</label>
+        <input type="text" required pattern="[A-Za-z0-9]+" formControlName="name" class="form-control input-style"
+               id="name"
+               [ngStyle]="{'border': (customerUpdateForm.controls['name'].invalid && customerUpdateForm.controls['name'].touched) ? '2px solid red' : ''}">
+        <small *ngIf="customerUpdateForm.controls['name'].invalid && customerUpdateForm.controls['name'].touched"
+               id="nameHelp" class="form-text text-muted text-red">Only letters and numbers are accepted.</small>
+      </div>
+      <div class="form-group hide">
+        <input type="text" formControlName="customerNum"
+               class="form-control"/>
+      </div>
+      <div>
+        <app-charts [customer]="customer"></app-charts>
+      </div>
+      <div class="d-flex justify-content-between">
+        <label>Total Forecasts: </label>
+        <p>{{customer.totalForecasts}}</p>
+      </div>
+      <div class="row flex-container">
+        <div class="col-6">
+          <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="customerUpdateForm.invalid" (click)="onSubmit()">
+            Update Customer
+          </button>
+        </div>
+        <div class=" col-6 dropdown">
+          <button class="btn btn-outline-primary btn-block dropdown-toggle" type="button"
+                  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add Forecast
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item btn btn-danger" (click)="openInvestmentCreatePopup()">
+              Investment
+            </button>
+            <button class="dropdown-item btn btn-danger" (click)="openVehicleCreatePopup()">
+              Vehicle
+            </button>
+            <button class="dropdown-item btn btn-danger" (click)="openPersonalCreatePopup()">
+              Personal
+            </button>
+            <button class="dropdown-item btn btn-danger" (click)="openPropertyCreatePopup()">
+              Property
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':investmentModalDisplay}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" (click)="closeInvestmentCreatePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <app-investment-form [headerText]="'New Investment Forecast'" [headerIcon]="'fa-solid fa-piggy-bank'" [buttonText]="'Create Investment'" [eventType]="'Create'" [customerNum]="customer.customerNum" [customerName]="customer.name"></app-investment-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':vehicleModalDisplay}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" (click)="closeVehicleCreatePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <app-vehicle-form [headerText]="'New Vehicle Forecast'" [headerIcon]="'fa-solid fa-truck-monster'" [buttonText]="'Create Vehicle'" [eventType]="'Create'" [customerNum]="customer.customerNum" [customerName]="customer.name"></app-vehicle-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':personalModalDisplay}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" (click)="closePersonalCreatePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <app-personal-form [headerText]="'New Personal Forecast'" [headerIcon]="'fa-solid fa-building-columns'" [buttonText]="'Create Personal'" [eventType]="'Create'" [customerNum]="customer.customerNum" [customerName]="customer.name"></app-personal-form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':propertyModalDisplay}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" (click)="closePropertyCreatePopup()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <app-property-form [headerText]="'New Property Forecast'" [headerIcon]="'fa-solid fa-building-columns'" [buttonText]="'Create Property'" [eventType]="'Create'" [customerNum]="customer.customerNum" [customerName]="customer.name"></app-property-form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

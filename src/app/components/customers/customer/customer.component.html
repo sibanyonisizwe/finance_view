@@ -1,0 +1,21 @@
+<div class="loading-screen" [ngStyle]="{'display': loadingScreenDisplay}">
+  <div class="d-flex justify-content-center">
+    <div class="loadingio-spinner-bean-eater-xaltw9ubbn"><div class="ldio-rm7j5xyh808">
+      <div><div></div><div></div><div></div></div><div><div></div><div></div><div></div></div>
+    </div></div>
+  </div>
+</div>
+<div class="container">
+  <app-back-button></app-back-button>
+  <div class="d-flex justify-content-around row">
+    <div class="container  col-4">
+      <app-customer-update (alertUpdate)="alertUpdate($event)"></app-customer-update>
+    </div>
+    <div class="container col-7">
+      <ng-container *ngIf="doneLoading">
+      <app-customer-forecast-list-container [customerNum]="customer.customerNum" (alertDeleteForecast$)="alertForecastDelete($event)"></app-customer-forecast-list-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+

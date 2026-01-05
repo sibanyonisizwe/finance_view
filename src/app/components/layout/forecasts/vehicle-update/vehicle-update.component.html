@@ -1,0 +1,52 @@
+<div class="flex-container mx-auto w-95">
+  <div class="d-flex justify-content-end">
+    <app-back-button class="m-1"></app-back-button>
+    <ng-container *ngIf="doneLoading">
+      <app-more-details-button class="m-1" [forecastNum]="vehicle.forecastNum"
+                               [customerNum]="customerNum"></app-more-details-button>
+    </ng-container>
+  </div>
+  <div class="d-flex justify-content-around">
+    <div *ngIf="doneLoading">
+      <app-vehicle-form [headerText]="'Update Vehicle Forecast'" [headerIcon]="'fa-solid fa-truck-monster'"
+                        [customerNum]="customerNum" [customerName]="customerName" [eventType]="'Update'"
+                        [buttonText]="'Update Vehicle Forecast'" [vehicle]="vehicle"
+                        (alertUpdate)="alertUpdate($event)"></app-vehicle-form>
+    </div>
+    <div class="w-75">
+      <button id="forecast-table-btn" class="btn btn-primary btn-tabs w-50" [disabled]="disableForecastTable"
+              (click)="showForecastTable()">Forecast Table
+      </button>
+      <button id="statistics-btn" class="btn btn-primary btn-tabs w-50" [disabled]="disableStatistics"
+              (click)="showStatistics()">Statistics
+      </button>
+      <div *ngIf="doneLoading" id="forecast-table">
+        <ng-container *ngIf="vehicle$|async as newVehicle">
+          <app-vehicle-summary [vehicle]="newVehicle"></app-vehicle-summary>
+        </ng-container>
+        <app-forecast-row-list-container [forecastNum]="vehicle.forecastNum"
+                                         [forecastType]="'Vehicle'"></app-forecast-row-list-container>
+      </div>
+      <div id="statistics">
+        <button id="line-charts-btn" class="btn btn-primary btn-tabs-secondary w-50" [disabled]="disableLineCharts"
+                (click)="showLineCharts()">Line Charts
+        </button>
+        <button id="pie-charts-btn" class="btn btn-primary btn-tabs-secondary w-50" [disabled]="disablePieCharts"
+                (click)="showPieCharts()">Pie Charts
+        </button>
+        <div id="line-charts">
+          <canvas id="interestAndMonthlyAmountChart" height="90"></canvas>
+        </div>
+        <div id="pie-charts">
+          <div class="row">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <canvas id="pieChart"></canvas>
+            </div>
+            <div class="col-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

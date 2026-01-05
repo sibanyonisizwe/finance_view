@@ -1,0 +1,56 @@
+<h3 class="text-primary"><i class="{{headerIcon}}"></i> {{headerText}}</h3>
+<h6>Customer Number: {{customerNum}}</h6>
+<h6>Customer Name: {{customerName}}</h6>
+<form id="vehicleBond" [formGroup]="vehicleForm">
+  <div class="form-group">
+    <label for="goal">Forecast Name</label>
+    <input type="text" required pattern="[A-Za-z0-9 ]+" class="form-control input-style" id="goal" aria-describedby="forecastHelp"
+           formControlName = "forecastName" placeholder="Enter a Name for your Vehicle Forecast"
+           [ngStyle]="{'border': (vehicleForm.controls['forecastName'].invalid && vehicleForm.controls['forecastName'].touched) ? '2px solid red' : ''}">
+    <small *ngIf="vehicleForm.controls['forecastName'].invalid && vehicleForm.controls['forecastName'].touched" id="nameHelp" class="form-text text-muted text-red">Only letters, spaces and numbers are accepted.</small>
+  </div>
+  <div class="form-group">
+    <label for="purchasePrice">Purchase Price</label>
+    <input  class="form-control input-style" id="purchasePrice"
+           aria-describedby="purchaseHelp"  formControlName = "purchasePrice" placeholder="eg. 500000"
+           [ngStyle]="{'border': (vehicleForm.controls['purchasePrice'].invalid && vehicleForm.controls['purchasePrice'].touched) ? '2px solid red' : ''}">
+    <small *ngIf="vehicleForm.controls['purchasePrice'].invalid && vehicleForm.controls['purchasePrice'].touched" id="purchaseHelp" class="form-text text-muted text-red">Purchase price must at least be 1</small>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="form-group w-45">
+      <label for="depositPercentage">Deposit</label>
+      <input
+             class="form-control input-style"
+             id="depositPercentage"  formControlName = "depositPercentage" placeholder="eg. 50000"
+             [ngStyle]="{'border': (vehicleForm.controls['depositPercentage'].invalid && vehicleForm.controls['depositPercentage'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="vehicleForm.controls['depositPercentage'].invalid && vehicleForm.controls['depositPercentage'].touched" id="depositHelp" class="form-text text-muted text-red">Deposit must be 0 or more</small>
+    </div>
+    <div class="form-group w-45">
+      <label for="balloonPayment">Balloon Payment</label>
+      <input
+             class="form-control input-style"
+             id="balloonPayment"
+             step="0.25" formControlName="balloonPercentage" placeholder="eg. 112500"
+             [ngStyle]="{'border': (vehicleForm.controls['balloonPercentage'].invalid && vehicleForm.controls['balloonPercentage'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="vehicleForm.controls['balloonPercentage'].invalid && vehicleForm.controls['balloonPercentage'].touched" id="balloonHelp" class="form-text text-muted text-red">Balloon payment must be 0 or more</small>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="form-group w-45">
+      <label for="interestRate">Interest Rate</label>
+      <input type="number" min="1" max="15" class="form-control input-style" id="interestRate" step="0.25"
+             formControlName="interestRate" placeholder="eg. 6"
+             [ngStyle]="{'border': (vehicleForm.controls['interestRate'].invalid && vehicleForm.controls['interestRate'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="vehicleForm.controls['interestRate'].invalid && vehicleForm.controls['interestRate'].touched" id="interestHelp" class="form-text text-muted text-red">Interest can only be number between 1 and 100</small>
+    </div>
+    <div class="form-group w-45">
+      <label for="term">Term</label>
+      <input type="number" min="1" max="660" class="form-control input-style" id="term"
+             formControlName="term" placeholder="eg. 60"
+             [ngStyle]="{'border': (vehicleForm.controls['term'].invalid && vehicleForm.controls['term'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="vehicleForm.controls['term'].invalid && vehicleForm.controls['term'].touched" id="termHelp" class="form-text text-muted text-red">Term can only be number between 1 and 660</small>
+    </div>
+  </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="vehicleForm.invalid" (click)="clickEvent()">{{buttonText}}
+    </button>
+</form>

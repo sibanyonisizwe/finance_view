@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row text-center">
+    <div class="col-12">
+      <h4 class="text-primary">Forecasts</h4>
+    </div>
+  </div>
+  <div class="container scroll">
+    <table class="table table-sm table-borderless table-hover mx-auto">
+      <thead class="sticky-top bg-light">
+      <tr>
+        <th class="text-primary" scope="col">Forecast Number</th>
+        <th class="text-primary" scope="col">Forecast Name</th>
+        <th class="text-primary text-right" scope="col">Interest Rate</th>
+        <th class="text-primary text-right" scope="col">Term</th>
+        <th class="text-primary text-right" scope="col"></th>
+        <th class="text-primary text-right" scope="col"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let forecast of forecasts">
+        <td>{{forecast.forecastNum}}</td>
+        <td>{{forecast.forecastName}}</td>
+        <td class="text-right">{{forecast.interestRate}}</td>
+        <td class="text-right">{{forecast.term}}</td>
+        <td>
+          <button *ngIf="forecast.type=='Investment'" class="btn btn-outline-primary" [routerLink]="['/investments/update/',customerNum, forecast.forecastNum]"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button *ngIf="forecast.type=='Personal'" class="btn btn-outline-primary" [routerLink]="['/personals/update/',customerNum, forecast.forecastNum]"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button *ngIf="forecast.type=='Vehicle'" class="btn btn-outline-primary" [routerLink]="['/vehicles/update/',customerNum, forecast.forecastNum]"><i class="fa-solid fa-magnifying-glass"></i></button>
+          <button *ngIf="forecast.type=='Property'" class="btn btn-outline-primary" [routerLink]="['/properties/update/',customerNum, forecast.forecastNum]"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </td>
+        <td>
+          <button class="btn btn-outline-primary" (click)="openPopup(forecast.forecastNum)">
+            <i class="fa-solid fa-trash-can"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <ng-container *ngFor="let object of displayStyles">
+      <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':object.displayStyle}">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete {{forecastType}} Forecast</h5>
+              <button type="button" class="close" (click)="closePopup(object.num)">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete this {{forecastType}} Forecast?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="closePopup(object.num)">
+                No
+              </button>
+              <button class="btn btn-primary" (click)="deleteForecast(object.num)">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

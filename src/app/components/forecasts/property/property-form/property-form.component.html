@@ -1,0 +1,46 @@
+<h3 class="text-primary"><i class="{{headerIcon}}"></i> {{headerText}}</h3>
+<h6>Customer Number: {{customerNum}}</h6>
+<h6>Customer Name: {{customerName}}</h6>
+<form id="vehicleBond" [formGroup]="propertyForm">
+  <div class="form-group">
+    <label for="goal">Forecast Name</label>
+    <input type="text" required pattern="[A-Za-z0-9 ]+" class="form-control input-style" id="goal" aria-describedby="forecastHelp" placeholder="Enter a Name for your Property Forecast"
+           formControlName = "forecastName"[ngStyle]="{'border': (propertyForm.controls['forecastName'].invalid && propertyForm.controls['forecastName'].touched) ? '2px solid red' : ''}">
+    <small *ngIf="propertyForm.controls['forecastName'].invalid && propertyForm.controls['forecastName'].touched" id="nameHelp" class="form-text text-muted text-red">Only letters, spaces and
+      numbers are accepted.</small>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="form-group w-45">
+      <label for="purchasePrice">Purchase Price</label>
+      <input class="form-control input-style" id="purchasePrice"
+             aria-describedby="purchaseHelp"  formControlName = "purchasePrice" placeholder="eg. 2000000"
+             [ngStyle]="{'border': (propertyForm.controls['purchasePrice'].invalid && propertyForm.controls['purchasePrice'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="propertyForm.controls['purchasePrice'].invalid && propertyForm.controls['purchasePrice'].touched" id="purchaseHelp" class="form-text text-muted text-red">Purchase price must at least be 1</small>
+
+    </div>
+    <div class="form-group w-45">
+      <label for="depositPercentage">Deposit</label>
+      <input  class="form-control input-style"
+             id="depositPercentage"  formControlName = "depositPercentage" placeholder="eg. 200000"
+             [ngStyle]="{'border': (propertyForm.controls['depositPercentage'].invalid && propertyForm.controls['depositPercentage'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="propertyForm.controls['depositPercentage'].invalid && propertyForm.controls['depositPercentage'].touched" id="depositHelp" class="form-text text-muted text-red">Deposit must be 0 or more</small>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="form-group w-45">
+      <label for="interestRate">Interest Rate</label>
+      <input type="number" class="form-control input-style" id="interestRate" formControlName="interestRate" placeholder="eg. 7"
+             [ngStyle]="{'border': (propertyForm.controls['interestRate'].invalid && propertyForm.controls['interestRate'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="propertyForm.controls['interestRate'].invalid && propertyForm.controls['interestRate'].touched" id="interestHelp" class="form-text text-muted text-red">Interest can only be number between 1 and 100</small>
+    </div>
+    <div class="form-group w-45">
+      <label for="term">Term</label>
+      <input type="number" class="form-control input-style" id="term" placeholder="eg. 240"
+             formControlName="term" [ngStyle]="{'border': (propertyForm.controls['term'].invalid && propertyForm.controls['term'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="propertyForm.controls['term'].invalid && propertyForm.controls['term'].touched" id="termHelp" class="form-text text-muted text-red">Term can only be number between 1 and 660</small>
+    </div>
+  </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="propertyForm.invalid" (click)="clickEvent()">{{buttonText}}
+    </button>
+</form>
+

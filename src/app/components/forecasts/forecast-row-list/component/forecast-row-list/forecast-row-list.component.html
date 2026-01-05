@@ -1,0 +1,48 @@
+<div class="row forecast-row-table-scroll justify-content-center align-items-center" #target>
+  <table id="myTable" class="table table-borderless mx-auto text-right">
+    <thead class="sticky-top bg-light">
+    <tr>
+      <th class="text-primary" scope="col">Month</th>
+      <th class="text-primary" scope="col">Interest</th>
+      <th class="text-primary" scope="col">Opening Balance</th>
+      <th class="text-primary" scope="col">Deposit</th>
+      <th class="text-primary" scope="col">Withdrawal</th>
+      <th class="text-primary" scope="col">{{monthlyAmountText}}</th>
+      <th class="text-primary" scope="col">Interest Amount</th>
+      <th class="text-primary" scope="col">Closing Balance</th>
+      <th class="text-primary" scope="col"></th>
+    </tr>
+    </thead>
+    <tbody id="topOfTable">
+    <tr *ngFor="let forecastRow of forecastRows">
+      <td>{{forecastRow.term}}</td>
+      <td> {{forecastRow.interestRate}}</td>
+      <td>{{forecastRow.openingBalance.value | number: '.2'}}</td>
+      <td>{{forecastRow.randomDeposit.value | number: '.2'}}</td>
+      <td>{{forecastRow.randomWithdrawal.value | number: '.2'}}</td>
+      <td>{{forecastRow.deposit.value | number: '.2'}}</td>
+      <td>{{forecastRow.interestAmount.value | number: '.2'}}</td>
+      <td>{{forecastRow.closingBalance.value | number: '.2'}}</td>
+      <td>
+        <div class="my-tooltip">
+          <a class="btn-sm btn-outline-primary" [routerLink]="['/events/create/', customerNum, forecastNum, forecastRow.term]">
+            <i class="fa-solid fa-plus"></i>
+          </a>
+          <div class="my-tooltip-event-text">
+            Add an event
+          </div>
+        </div>
+      </td>
+      <td></td>
+    </tr>
+    <tr id="endOfTable"></tr>
+    </tbody>
+  </table>
+</div>
+<div class="row justify-content-center align-items-center py-3">
+  <button class="btn btn-outline-primary" (click)="scrollToBottom(target)" id="down-list-arrow"><i
+    class="fa-solid fa-arrow-down-long"></i></button>
+  <button class="btn btn-outline-primary" (click)="scrollToTop()" id="up-list-arrow"><i
+    class="fa-solid fa-arrow-up-long"></i>
+  </button>
+</div>

@@ -1,0 +1,108 @@
+<div class="loading-screen" [ngStyle]="{'display': loadingScreenDisplay}">
+  <div class="d-flex justify-content-center">
+    <div class="loadingio-spinner-bean-eater-xaltw9ubbn"><div class="ldio-rm7j5xyh808">
+      <div><div></div><div></div><div></div></div><div><div></div><div></div><div></div></div>
+    </div></div>
+  </div>
+</div>
+<div class="container">
+  <app-back-button></app-back-button>
+  <div class="d-flex justify-content-around">
+    <div>
+      <h3 class="text-primary"><i class="fa-solid fa-user-plus"></i> Add Customer</h3>
+      <form [formGroup]="customerCreateForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control input-style" formControlName="name" placeholder="Enter you name"
+                 [ngStyle]="{'border': (customerCreateForm.controls['name'].invalid && customerCreateForm.controls['name'].touched) ? '2px solid red' : ''}">
+          <small *ngIf="customerCreateForm.controls['name'].invalid && customerCreateForm.controls['name'].touched"
+                 id="nameHelp" class="form-text text-muted text-red">Only letters and numbers are accepted.</small>
+        </div>
+        <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="customerCreateForm.invalid"
+                (click)="createCustomer()">
+          Add Customer
+        </button>
+      </form>
+    </div>
+    <div class="container w-50">
+      <div class="row text-center">
+        <div class="col-12">
+          <h4 class="text-primary">Customers</h4>
+          <small class="form-text text-muted">Click on a row to go the customer's details</small>
+        </div>
+      </div>
+        <div class="container scroll">
+          <table class="table table-sm table-borderless table-hover mx-auto">
+            <thead class="sticky-top bg-light">
+            <tr>
+              <th class="text-primary">Customer Number</th>
+              <th class="text-primary">Name</th>
+              <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customer of customers | paginate :{
+              itemsPerPage: pageSize,
+              currentPage: page+1,
+              totalItems: count
+              };">
+              <td [routerLink]="['/customers/', customer.customerNum]">{{customer.customerNum}}</td>
+              <td [routerLink]="['/customers/', customer.customerNum]">{{customer.name}}</td>
+              <td>
+                <button class="btn btn-outline-primary" (click)="openPopup(customer.customerNum)">
+                  <i class="fa-solid fa-trash-can"></i>
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <ng-container *ngFor="let object of displayStyles">
+            <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':object.displayStyle}">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete Customer</h5>
+                    <button type="button" class="close" (click)="closePopup(object.num)">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Are you sure you want to delete this Customer?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-secondary" (click)="closePopup(object.num)">No</button>
+                    <button class="btn btn-primary" (click)="deleteCustomer(object.num)">Yes</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+        <div class="d-flex justify-content-center">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+        </div>
+        <div class="d-flex justify-content-around">
+          <div class="mt-1">
+            Items:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+          <div class="mt-1">
+            Sort by:
+            <select (change)="handleSortChange($event)">
+              <option *ngFor="let sortOption of sortOptions" [ngValue]="sortOption">
+                {{ sortOption }}
+              </option>
+            </select>
+          </div>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,394 @@
+<div class="loading-screen" [ngStyle]="{'display': loadingScreenDisplay}">
+  <div class="d-flex justify-content-center">
+    <div class="loadingio-spinner-bean-eater-xaltw9ubbn"><div class="ldio-rm7j5xyh808">
+      <div><div></div><div></div><div></div></div><div><div></div><div></div><div></div></div>
+    </div></div>
+  </div>
+</div>
+<div class="container">
+  <app-back-button></app-back-button>
+  <div class="d-flex justify-content-around">
+    <div class="w-25">
+      <h3 class="text-primary">
+        <i class="fa-solid fa-pen-to-square"></i>
+        Update Taxpayer
+      </h3>
+      <form [formGroup]="taxPayerForm">
+        <div class="form-group">
+          <label>Name</label>
+          <input
+            type="text"
+            id="name"
+            formControlName="name"
+            class="form-control input-style"
+            [ngStyle]="{'border': (taxPayerForm.controls['name'].invalid) ? '2px solid red' : ''}"
+          />
+          <small *ngIf="taxPayerForm.controls['name'].invalid" id="nameHelp" class="form-text text-muted">Only letters
+            and spaces are accepted.</small>
+        </div>
+        <div class="form-group">
+          <label>Age</label>
+          <input
+            type="number"
+            id="age"
+            formControlName="age"
+            class="form-control input-style"
+            [ngStyle]="{'border': (taxPayerForm.controls['age'].invalid) ? '2px solid red' : ''}"
+          />
+          <small *ngIf="taxPayerForm.controls['age'].invalid" id="ageHelp" class="form-text text-muted">Age can only be
+            positive.</small>
+        </div>
+        <div class="form-group">
+          <label>Medical Credits</label>
+          <input class="form-control input-style" formControlName="medicalCredits" placeholder="Enter your medical credits" [ngStyle]="{'border': (taxPayerForm.controls['medicalCredits'].invalid && taxPayerForm.controls['medicalCredits'].touched) ? '2px solid red' : ''}">
+          <small *ngIf="taxPayerForm.controls['medicalCredits'].invalid && taxPayerForm.controls['medicalCredits'].touched" id="medicalCreditsHelp" class="form-text text-muted text-red">Medical Credits can only be 0 or more.</small>
+        </div>
+        <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="taxPayerForm.invalid" (click)="updateTaxPayer()">
+          Update Taxpayer
+        </button>
+        <br>
+        <div id="tax-chart">
+          <div class="d-flex justify-content-between">
+            <canvas class="chartDetails" id="taxChart"></canvas>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="container w-75">
+      <button id="income-expense-btn" class="btn btn-primary btn-tabs" [disabled]="disableIncomeAndExpense"
+              (click)="showIncomeAndExpense()">Income and Expense
+      </button>
+      <button id="tax-breakdown-btn" class="btn btn-primary btn-tabs" [disabled]="disableTaxBreakdown"
+              (click)="showTaxBreakdown()">Tax Breakdown
+      </button>
+      <div id="income-expense-forms">
+        <ng-container *ngIf="taxpayer$ | async as taxPayer">
+          <div class="d-flex justify-content-between">
+            <div class="text-center">
+              <h5 class="text-primary">Tax Payable Yearly:</h5>
+              <h5 class="text-dark">R{{taxPayer.nettTaxPayable.value | number: '.2'}}</h5>
+            </div>
+            <div class="text-center">
+              <h5 class="text-primary">Tax Year:</h5>
+              <h5 class="text-dark">Mar-21 to Feb-22</h5>
+            </div>
+            <div class="my-tooltip">
+              <div class="text-center">
+                <h5 class="text-primary">Average Tax Rate: <i class="fa-solid fa-circle-info fa-sm text-primary"></i> </h5>
+                <h5 class="text-dark">{{taxPayer.averageTaxRate | number: '.2'}}%</h5>
+              </div>
+              <div class="my-tooltip-text">
+                The average tax rate is the total tax paid divided by taxable income.
+              </div>
+            </div>
+            <div class="my-tooltip">
+              <div class="text-center">
+                <h5 class="text-primary">Marginal Tax Rate: <i class="fa-solid fa-circle-info fa-sm text-primary"></i> </h5>
+                <h5 class="text-dark">{{taxPayer.marginalTaxRate | number: '.2'}}%</h5>
+              </div>
+              <div class="my-tooltip-text">
+                The Marginal tax rate shows the amount of tax paid the next rand earned.
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="d-flex justify-content-between py-4">
+          <div class="income-form">
+            <form id="newIncomeForm" role="form" [formGroup]="incomeForm">
+              <h5 class="text-primary">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Yearly Income
+              </h5>
+              <div class="form-group">
+                <label>Salary</label>
+                <input
+                       class="form-control input-style"
+                       formControlName="salary"
+                       id="salary"
+
+                       [ngStyle]="{'border': (incomeForm.controls['salary'].invalid) ? '2px solid red' : ''}">
+                <small *ngIf="incomeForm.controls['salary'].invalid" class="form-text text-muted text-red">Salary is required and must be positive.</small>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="form-group w-45">
+                  <label>Bonus</label>
+                  <input
+                         class="form-control input-style"
+                         formControlName="bonus"
+                         id="bonus"
+                         [ngStyle]="{'border': (incomeForm.controls['bonus'].invalid) ? '2px solid red' : ''}">
+                  <small *ngIf="incomeForm.controls['bonus'].invalid" class="form-text text-muted text-red">Bonus is required and must be positive.</small>
+                </div>
+                <div class="form-group w-45">
+                  <label>Interest Received</label>
+                  <input
+                         class="form-control input-style"
+                         formControlName="interestReceived"
+                         id="interestReceived"
+
+                         [ngStyle]="{'border': (incomeForm.controls['interestReceived'].invalid) ? '2px solid red' : ''}">
+                  <small *ngIf="incomeForm.controls['interestReceived'].invalid" class="form-text text-muted text-red">Interest Received is required and must be positive.</small>
+                </div>
+              </div>
+              <div class="d-flex justify-content-between">
+                <div class="form-group w-45">
+                  <label>Dividend</label>
+                  <input
+                         class="form-control input-style"
+                         formControlName="dividend"
+                         id="dividend"
+
+                         [ngStyle]="{'border': (incomeForm.controls['dividend'].invalid) ? '2px solid red' : ''}">
+                  <small *ngIf="incomeForm.controls['dividend'].invalid" class="form-text text-muted text-red">Dividend is required and must be positive.</small>
+                </div>
+                <div class="form-group w-45">
+                  <label>Capital Gains</label>
+                  <input
+                         class="form-control input-style"
+                         formControlName="capitalGain"
+                         id="capitalGain"
+
+                         [ngStyle]="{'border': (incomeForm.controls['capitalGain'].invalid) ? '2px solid red' : ''}">
+                  <small *ngIf="incomeForm.controls['capitalGain'].invalid" class="form-text text-muted text-red">Capital gain is required and must be positive.</small>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="expense-form w-50">
+            <form id="newExpensesForm" role="form" [formGroup]="expenseForm">
+              <h5 class="text-primary">
+                <i class="fa-solid fa-pen-to-square"></i>
+                Yearly Expenses
+              </h5>
+              <div class="form-group">
+                <label>Retirement Funding</label>
+                <input
+                       class="form-control input-style"
+                       formControlName="retirementFunding"
+                       id="retirementFund"
+
+                       [ngStyle]="{'border': (expenseForm.controls['retirementFunding'].invalid) ? '2px solid red' : ''}">
+                <small *ngIf="expenseForm.controls['retirementFunding'].invalid" class="form-text text-muted text-red">Retirement funding is required and must be positive.</small>
+              </div>
+              <div class="form-group">
+                <label>Travel Allowance</label>
+                <input
+                       class="form-control input-style"
+                       formControlName="travelAllowance"
+                       id="travelAllowance"
+
+                       [ngStyle]="{'border': (expenseForm.controls['travelAllowance'].invalid) ? '2px solid red' : ''}">
+                <small *ngIf="expenseForm.controls['travelAllowance'].invalid" class="form-text text-muted text-red">Travel allowance is required and must be positive.</small>
+              </div>
+
+            </form>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center">
+          <button type="Submit" class="btn btn-outline-primary btn-block" [disabled]="incomeForm.invalid || expenseForm.invalid"
+                  (click)="updateIncomeAndExpense()">
+            Calculate Tax
+          </button>
+        </div>
+      </div>
+      <div id="tax-breakdown">
+        <div class="breakdown-scroll">
+          <ng-container *ngIf="taxpayer$ | async as taxPayer">
+            <table class="table table-borderless">
+              <thead class="bg-light">
+                <tr>
+                  <th class="text-primary">Income Item</th>
+                  <th class="text-primary text-right">Income</th>
+                  <th class="text-primary text-right">Exemption</th>
+                  <th class="text-primary text-right">Inclusion rate</th>
+                  <th class="text-primary text-right">Taxable Income</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Salary</td>
+                  <td class="text-right">{{taxPayer.income.salary.value | number: '.2'}}</td>
+                  <td class="text-right">{{0 | number: '.2'}}</td>
+                  <td class="text-right">{{100 | number: '.2'}}%</td>
+                  <td class="text-right">{{taxPayer.income.taxableSalary.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Bonuses</td>
+                  <td class="text-right">{{taxPayer.income.bonus.value | number: '.2'}}</td>
+                  <td class="text-right">{{0 | number: '.2'}}</td>
+                  <td class="text-right">{{100 | number: '.2'}}%</td>
+                  <td class="text-right">{{taxPayer.income.taxableBonus.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Interest Received</td>
+                  <td class="text-right">{{taxPayer.income.interestReceived.value | number: '.2'}}</td>
+                  <td class="text-right">{{23800 | number: '.2'}}</td>
+                  <td class="text-right">{{100 | number: '.2'}}%</td>
+                  <td class="text-right">{{taxPayer.income.taxableInterestReceived.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Dividends</td>
+                  <td class="text-right">{{taxPayer.income.dividend.value | number: '.2'}}</td>
+                  <td class="text-right">{{0 | number: '.2'}}</td>
+                  <td class="text-right">{{0 | number: '.2'}}%</td>
+                  <td class="text-right">{{taxPayer.income.taxableDividend.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Total Capital Gains</td>
+                  <td class="text-right">{{taxPayer.income.capitalGain.value | number: '.2'}}</td>
+                  <td class="text-right">{{40000 | number: '.2'}}</td>
+                  <td class="text-right">{{40 | number: '.2'}}%</td>
+                  <td class="text-right">{{taxPayer.income.taxableCapitalGain.value | number: '.2'}}</td>
+                </tr>
+                <tr class="border-bottom border-top border-primary">
+                  <td class="text-primary">Total Income:</td>
+                  <td class="text-right text-primary">{{taxPayer.income.totalIncome.value | number: '.2'}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right text-primary">{{taxPayer.income.totalTaxableIncome.value | number: '.2'}}</td>
+                </tr>
+              </tbody>
+              <thead class="bg-light">
+                <tr>
+                  <th class="text-primary">Expense Item</th>
+                  <th class="text-primary text-right">Expense</th>
+                  <th class="text-primary text-right">Max Allowed</th>
+                  <th class="text-primary text-right"></th>
+                  <th class="text-primary text-right">Tax Deductible</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Retirement Funding</td>
+                  <td class="text-right">{{taxPayer.expense.retirementFunding.value | number: '.2'}}</td>
+                  <td class="text-right">{{taxPayer.expense.maxRetirementFunding.value | number: '.2'}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right">{{taxPayer.expense.taxDeductibleRetirementFunding.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Travel Allowance</td>
+                  <td class="text-right">{{taxPayer.expense.travelAllowance.value | number: '.2'}}</td>
+                  <td class="text-right">{{taxPayer.expense.travelAllowance.value | number: '.2'}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right">{{taxPayer.expense.taxDeductibleTravelAllowance.value | number: '.2'}}</td>
+                </tr>
+                <tr class="border-bottom border-top border-primary">
+                  <td class="text-primary">Total Expenses:</td>
+                  <td class="text-right text-primary">{{taxPayer.expense.totalExpenses.value | number: '.2'}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right text-primary">{{taxPayer.expense.totalTaxDeductibleExpenses.value | number: '.2'}}</td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-primary"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right text-primary"></td>
+                </tr>
+                <tr class="border-bottom border-top border-primary">
+                  <td class="text-primary">Nett Taxable Income:</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right text-primary">{{taxPayer.nettTaxableIncome.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Tax Payable:</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right">
+                    <div class="d-flex justify-content-end">
+                      <div class="my-tooltip">
+                        <a class="btn-sm btn-outline-primary" (click)="openTaxTable()"><i class="fa-solid fa-table"></i></a>
+                        <div class="my-tooltip-table-text">
+                          2022 Tax Table
+                        </div>
+                      </div>
+                      <div>{{taxPayer.taxPayable.value | number: '.2'}}</div>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Medical Credits:</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right">-{{taxPayer.medicalCredits.value | number: '.2'}}</td>
+                </tr>
+                <tr>
+                  <td>Total Rebates:</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right">-{{taxPayer.rebates.value | number: '.2'}}</td>
+                </tr>
+                <tr class="border-bottom border-top border-primary">
+                  <td class="text-primary">Nett Tax Payable:</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-right text-primary">{{taxPayer.nettTaxPayable.value | number: '.2'}}</td>
+                </tr>
+              </tfoot>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal" [ngStyle]="{'display':taxTableDisplay}">
+<!--  <div class="d-flex justify-content-center align-items-center bg-secondary">-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">2022 Tax Table</h5>
+        <button type="button" class="close" (click)="closePopup()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ng-container *ngIf="taxpayer$ | async as taxPayer">
+          <table class="table text-right">
+            <thead class="sticky-top bg-light">
+            <tr>
+              <th></th>
+              <th class="text-primary">Low</th>
+              <th class="text-primary">High</th>
+              <th class="text-primary">Percentage</th>
+              <th class="text-primary">Taxable Income</th>
+              <th class="text-primary">Total Income Left</th>
+              <th class="text-primary">Tax Payable</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let taxTableRow of taxPayer.taxTableRows">
+              <td></td>
+              <td>{{taxTableRow.low.value | number: '.2'}}</td>
+              <td>{{taxTableRow.high.value | number: '.2'}}</td>
+              <td>{{taxTableRow.percentage}}%</td>
+              <td>{{taxTableRow.taxableIncome.value | number: '.2'}}</td>
+              <td>{{taxTableRow.totalIncomeLeft.value | number: '.2'}}</td>
+              <td>{{taxTableRow.taxPayable.value | number: '.2'}}</td>
+            </tr>
+            </tbody>
+            <tfoot class="bg-light">
+            <tr>
+              <td class="text-primary">Totals</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td class="text-primary">{{taxPayer.nettTaxableIncome.value | number: '.2'}}</td>
+              <td class="text-primary">{{0 | number: '.2'}}</td>
+              <td class="text-primary">{{taxPayer.taxPayable.value | number: '.2'}}</td>
+            </tr>
+            </tfoot>
+          </table>
+        </ng-container>
+      </div>
+    </div>
+<!--  </div>-->
+</div>

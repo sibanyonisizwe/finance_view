@@ -1,0 +1,15 @@
+<div class="loading-screen" [ngStyle]="{'display': loadingScreenDisplay}">
+  <div class="d-flex justify-content-center">
+    <div class="loadingio-spinner-bean-eater-xaltw9ubbn"><div class="ldio-rm7j5xyh808">
+      <div><div></div><div></div><div></div></div><div><div></div><div></div><div></div></div>
+    </div></div>
+  </div>
+</div>
+<ng-container *ngIf="doneLoading">
+  <div class="text-center">
+    <span class="text-primary end-month-label">End Month:</span>
+    <span class="end-month-value">{{forecastRows.length}}</span>
+  </div>
+  <app-forecast-row-list (addedEvent)="addEvent($event)" [forecastType]="forecastType" [forecastRows]="forecastRows"></app-forecast-row-list>
+</ng-container>
+

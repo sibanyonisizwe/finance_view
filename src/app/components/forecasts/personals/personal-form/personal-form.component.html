@@ -1,0 +1,33 @@
+<h3 class="text-primary"><i class="{{headerIcon}}"></i> {{headerText}}</h3>
+<h6>Customer Number: {{customerNum}}</h6>
+<h6>Customer Name: {{customerName}}</h6>
+<form [formGroup]="personalForm">
+  <div class="form-group">
+    <label>Forecast Name</label>
+    <input type="text" class="form-control input-style" formControlName="forecastName" placeholder="Enter a Forecast Name"
+           [ngStyle]="{'border': (personalForm.controls['forecastName'].invalid && personalForm.controls['forecastName'].touched) ? '2px solid red' : ''}">
+    <small *ngIf="personalForm.controls['forecastName'].invalid && personalForm.controls['forecastName'].touched" id="nameHelp" class="form-text text-muted text-red">Only letters, spaces and
+      numbers are accepted.</small>
+  </div>
+  <div class="form-group">
+    <label>Loan Amount</label>
+    <input class="form-control input-style" formControlName="purchasePrice" placeholder="eg. 50000"
+           [ngStyle]="{'border': (personalForm.controls['purchasePrice'].invalid && personalForm.controls['purchasePrice'].touched) ? '2px solid red' : ''}">
+    <small *ngIf="personalForm.controls['purchasePrice'].invalid && personalForm.controls['purchasePrice'].touched" id="purchaseHelp" class="form-text text-muted text-red">Loan must be at least 1</small>
+  </div>
+  <div class="d-flex justify-content-between">
+    <div class="form-group w-45">
+      <label>Interest Rate</label>
+      <input type="number" class="form-control input-style" formControlName="interestRate" placeholder="eg. 12"
+             [ngStyle]="{'border': (personalForm.controls['interestRate'].invalid && personalForm.controls['interestRate'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="personalForm.controls['interestRate'].invalid && personalForm.controls['interestRate'].touched" id="interestHelp" class="form-text text-muted text-red">Interest can only be number between 1 and 100</small>
+    </div>
+    <div class="form-group w-45">
+      <label>Term</label>
+      <input type="number" class="form-control input-style" formControlName="term" placeholder="eg. 24"
+             [ngStyle]="{'border': (personalForm.controls['term'].invalid && personalForm.controls['term'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="personalForm.controls['term'].invalid && personalForm.controls['term'].touched" id="termHelp" class="form-text text-muted text-red">Term can only be number between 1 and 144</small>
+    </div>
+  </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" [disabled]="personalForm.invalid" (click)="clickEvent()">{{buttonText}}</button>
+</form>
