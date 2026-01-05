@@ -1,0 +1,352 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300);
+
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: bold !important;
+}
+
+/* You can add global styles to this file, and also import other style files */
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.scroll {
+  top: 0;
+  min-height: fit-content;
+  max-height: 400px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
+
+/*table {
+    background: #fff;
+}*/
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 15px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  margin-top: 10px !important;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
+  background: var(--primary); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
+  background: var(--primary); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+label {
+  color: var(--primary);
+}
+
+.nav-link {
+  font-size: large;
+}
+
+input {
+  height: 25px;
+}
+
+#showAlert {
+  display: block;
+}
+
+#hideAlert {
+  display: none;
+}
+
+.drilldown:not(.collapsed) .rotate-icon {
+  transform: rotate(180deg);
+}
+
+.drilldown {
+  cursor: pointer;
+  border-bottom: none;
+}
+
+.hide {
+  display: none;
+}
+
+.vertical-center {
+  min-height: 85%; /* Fallback for browsers do NOT support vh unit */
+  min-height: 85vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+.clickable-row {
+  cursor: pointer;
+  z-index: 5
+}
+
+.delete-btn {
+  z-index: 10;
+}
+
+
+.nav-link.active {
+  background-color: var(--primary) !important;
+  color: #fff !important;
+}
+
+.secondary-nav-link.active {
+  background-color: var(--dark) !important;
+  color: #fff !important;
+}
+
+.tertiary-nav-link.active {
+  background-color: var(--secondary) !important;
+}
+
+.more-details-info {
+  width: 35%;
+}
+
+.w-95 {
+  width: 95%;
+}
+
+.forecast-form {
+  width: 20%;
+}
+
+.forecast-info {
+  width: 75%;
+}
+
+.input-style {
+  background-color: var(--light);
+  border: 0;
+  border-bottom: 1px solid var(--primary);
+  border-radius: 0;
+}
+
+
+.btn {
+  border-radius: 0 !important;
+}
+
+.w-45 {
+  width: 45%;
+}
+
+.w-30{
+  width: 30%;
+}
+
+.btn-tabs {
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  background-color: var(--light);
+  border-color: var(--primary);
+  color: var(--primary);
+
+}
+
+.btn-tabs:hover {
+  color: var(--gray-dark);
+  background-color: var(--light);
+  border-color: var(--light);}
+
+.btn-tabs:disabled {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-tabs-secondary {
+  margin-top: 2px;
+  border-top-right-radius: 5px !important;
+  border-top-left-radius: 5px !important;
+  background-color: var(--light);
+  border-color: var(--light);
+  color: var(--primary);
+}
+
+.btn-tabs-secondary:hover {
+  color: var(--gray-dark);
+  background-color: var(--light);
+  border-color: var(--light);
+}
+
+.btn-tabs-secondary:disabled {
+  background-color: var(--dark);
+  border-color: var(--dark);
+  color: var(--white);
+}
+
+/* Tooltip container */
+.my-tooltip {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.my-tooltip .my-tooltip-text {
+  visibility: hidden;
+  width: 370px;
+  height: fit-content;
+  background-color: #e98e6e;
+  color: var(--white);
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  left:-135px;
+  z-index: 999999999;
+}
+/* Tooltip text */
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.my-tooltip:hover .my-tooltip-text {
+  visibility: visible;
+}
+
+.my-tooltip .my-tooltip-table-text {
+  visibility: hidden;
+  width: max-content;
+  height: min-content;
+  background-color: #e98e6e;
+  color: var(--white);
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  left:-110px;
+  top: -3px;
+  z-index: 999999999;
+}
+/* Tooltip text */
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.my-tooltip:hover .my-tooltip-table-text {
+  visibility: visible;
+}
+
+.my-tooltip .my-tooltip-event-text {
+  visibility: hidden;
+  width: max-content;
+  height: min-content;
+  background-color: #e98e6e;
+  color: var(--white);
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  left:-100px;
+  top: -3px;
+  z-index: 999999999;
+}
+/* Tooltip text */
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.my-tooltip:hover .my-tooltip-event-text {
+  visibility: visible;
+}
+
+.icon-color{
+  color: #e98e6e;
+}
+
+.btn:hover {
+  background-color: #e98e6e;
+  color: var(--white);
+}
+
+.btn-outline-primary:disabled:hover{
+  background-color: var(--light);
+  color: var(--primary);
+}
+
+.text-red{
+  color: red !important;
+}
+
+.toast-container .ngx-toastr {
+  width:600px !important;
+}
+
+.toast-top-center{
+  margin-top: 30px !important;
+}
+
+.toast-success {
+  color: var(--primary);
+}
+
+.ngx-pagination{
+  padding: 0 !important;
+}
+
+.ngx-pagination .current,
+.btn-info {
+  background: var(--primary) !important;
+}
+
+select{
+  background: none;
+  border-color: var(--primary);
+  color: var(--primary);
+  width: fit-content;
+}
+
+option{
+  background: none;
+  border-color: var(--primary);
+}
+
+.text-black {
+  color: black;
+}

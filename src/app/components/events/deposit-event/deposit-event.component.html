@@ -1,0 +1,17 @@
+<div [formGroup]="depositForm" >
+  <div class="d-flex justify-content-center">
+    <h4 class="text-primary mx-auto">Deposit</h4>
+  </div>
+  <form id="newCustomerForm">
+    <div class="form-group">
+      <label>Deposit Amount</label>
+      <input class="form-control input-style" placeholder="Enter the deposit Amount" formControlName="amount"
+             [ngStyle]="{'border': (depositForm.controls['amount'].invalid && depositForm.controls['amount'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="depositForm.controls['amount'].invalid && depositForm.controls['amount'].touched"
+             id="nameHelp" class="form-text text-muted text-red">Deposit must be between 1 and {{this.forecastRow.openingBalance.value}}</small>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" (click)="onSubmit()"
+            [disabled]="depositForm.invalid">Submit</button>
+  </form>
+</div>
+

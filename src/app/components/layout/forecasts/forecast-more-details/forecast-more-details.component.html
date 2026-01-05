@@ -1,0 +1,59 @@
+<div class="flex-container mx-auto my-4 w-95">
+  <app-back-button></app-back-button>
+  <h3 class="text-primary"><i class="fa-solid fa-pen-to-square"></i>Forecast More
+    Details</h3>
+  <div class="d-flex justify-content-between more-details-info">
+    <div>
+      <h6>Forecast Num: {{forecastNum}}</h6>
+      <h6>Forecast Name: {{forecastName}}</h6>
+    </div>
+    <div>
+      <h6>Customer Num: {{customerNum}}</h6>
+      <h6>Customer Name: {{customerName}}</h6>
+    </div>
+  </div>
+
+<div>
+  <button id="forecast-table-btn" class="btn btn-primary btn-tabs w-50" (click)="showEventsTable()"
+          [disabled]="disableEventTable">Events
+  </button>
+  <button id="statistics-btn" class="btn btn-primary btn-tabs w-50" (click)="showStatisticsTable()"
+          [disabled]="disableStatistics">Event Graphs
+  </button>
+  <div id="table" class="py-3">
+    <app-event-table-list (alertDelete)="alertDelete($event)" [forecastNum]="forecastNum"></app-event-table-list>
+  </div>
+  <div id="statistics">
+    <button id="closing-balance-btn" class="btn btn-primary btn-tabs-secondary w-20" (click)="showClosingBalance()"
+            [disabled]="disableClosingBalance">Closing Balance
+    </button>
+    <button id="monthly-repayments-btn" class="btn btn-primary btn-tabs-secondary w-20"
+            (click)="showMonthlyRepayments()" [disabled]="disableMonthlyRepayments">{{monthlyText}}
+    </button>
+    <button id="deposits-btn" class="btn btn-primary btn-tabs-secondary w-20" (click)="showDeposits()"
+            [disabled]="disableDeposits">Deposits
+    </button>
+    <button id="withdrawals-btn" class="btn btn-primary btn-tabs-secondary w-20" (click)="showWithdrawals()"
+            [disabled]="disableWithdrawals">Withdrawals
+    </button>
+    <button id="interest-rate-btn" class="btn btn-primary btn-tabs-secondary w-20" (click)="showInterestRate()"
+            [disabled]="disableInterestRate">Interest Rate
+    </button>
+      <div id="closing-balance">
+        <canvas id="closingBalance" height="60"></canvas>
+      </div>
+      <div id="monthly-repayments">
+        <canvas id="monthlyRepayment" height="60"></canvas>
+      </div>
+      <div id="deposits">
+        <canvas id="deposit" height="60"></canvas>
+      </div>
+      <div id="withdrawals">
+        <canvas id="withdrawal" height="60"></canvas>
+      </div>
+      <div id="interest-rate">
+        <canvas id="interestRate" height="60"></canvas>
+      </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,23 @@
+
+<ng-container *ngIf="doneLoading">
+  <div [formGroup]="withdrawalForm">
+    <div class="d-flex justify-content-center">
+      <h4 class="text-primary mx-auto">Withdrawal</h4>
+    </div>
+    <form id="newCustomerForm">
+      <div class="form-group">
+        <label>Withdrawal Amount</label>
+        <input class="form-control input-style" placeholder="Enter the Withdrawal Amount"
+               formControlName="amount"
+               [ngStyle]="{'border': (withdrawalForm.controls['amount'].invalid && withdrawalForm.controls['amount'].touched) ? '2px solid red' : ''}">
+        <small *ngIf="withdrawalForm.controls['amount'].invalid && withdrawalForm.controls['amount'].touched"
+               id="nameHelp" class="form-text text-muted text-red">Withdrawal amount must be between 0
+          and {{this.maxWithdrawalAmount | number:'.2'}}</small>
+      </div>
+      <button type="submit" class="btn btn-outline-primary btn-block" (click)="onSubmit()"
+              [disabled]="withdrawalForm.invalid">Submit
+      </button>
+    </form>
+  </div>
+</ng-container>
+

@@ -1,0 +1,30 @@
+<div class="summary row text-center">
+  <div id="monthlyRepayment" class="col-6">
+    <h4 class="text-primary">Average Monthly Repayment:</h4>
+    <h5>
+      {{ personal.monthlyRepayment.displayValueWithPrefix}}
+    </h5>
+  </div>
+  <div id="amountPaid" class="col-6">
+    <h4 class="text-primary">Total Amount Paid:</h4>
+    <div class="my-tooltip">
+      <h5>
+        {{ personal.totalAmountPaid.displayValueWithPrefix}} <i class="fa-solid fa-circle-info fa-sm text-primary"></i>
+      </h5>
+      <div class="my-tooltip-text">
+        <div class="d-flex justify-content-between">
+          <h5>Loan Amount: </h5>
+          <h5>
+            {{personal.loanAmount.displayValueWithPrefix}}
+          </h5>
+        </div>
+        <div class="d-flex justify-content-between">
+          <h5>Total Interest: </h5>
+          <h5>
+            {{personal.totalInterestOnLoan.displayValueWithPrefix}}
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

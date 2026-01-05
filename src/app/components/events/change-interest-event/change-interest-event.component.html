@@ -1,0 +1,17 @@
+<div [formGroup]="changeInterestForm" >
+  <div class="d-flex justify-content-center">
+    <h4 class="text-primary mx-auto">Change Interest</h4>
+  </div>
+  <form id="newCustomerForm">
+    <div class="form-group">
+      <label>Interest Rate</label>
+      <input type="number" class="form-control input-style" placeholder="Enter the Interest, eg 12" formControlName="amount"
+             [ngStyle]="{'border': (changeInterestForm.controls['amount'].invalid && changeInterestForm.controls['amount'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="changeInterestForm.controls['amount'].invalid && changeInterestForm.controls['amount'].touched"
+             id="nameHelp" class="form-text text-muted text-red">Interest is a percentage between 1 and 100</small>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" (click)="onSubmit()"
+            [disabled]="changeInterestForm.invalid">Submit</button>
+  </form>
+</div>
+

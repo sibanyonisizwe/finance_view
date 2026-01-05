@@ -1,0 +1,18 @@
+<div [formGroup]="increaseMonthlyForm" >
+  <div class="d-flex justify-content-center">
+    <h4 class="text-primary mx-auto">Increase Monthly {{monthlyAmountString}}</h4>
+  </div>
+  <form id="newCustomerForm">
+    <div class="form-group">
+      <label>Increase in {{monthlyAmountString}}</label>
+      <input class="form-control input-style" placeholder="Enter the increase amount" formControlName="amount"
+             [ngStyle]="{'border': (increaseMonthlyForm.controls['amount'].invalid && increaseMonthlyForm.controls['amount'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="increaseMonthlyForm.controls['amount'].invalid && increaseMonthlyForm.controls['amount'].touched"
+             id="nameHelp" class="form-text text-muted text-red">The increase must be between 0 and
+        {{forecastRow.openingBalance.value - this.forecastRow.deposit.value| number:'.2'}}</small>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" (click)="onSubmit()"
+            [disabled]="increaseMonthlyForm.invalid">Submit</button>
+  </form>
+</div>
+

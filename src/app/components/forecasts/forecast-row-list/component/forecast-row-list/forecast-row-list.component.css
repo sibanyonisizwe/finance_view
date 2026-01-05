@@ -1,0 +1,30 @@
+.forecast-row-table-scroll {
+  top: 0;
+  height: 335px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+}
+
+.btn-primary{
+  border-radius: 0;
+}
+
+.btn-sm:hover{
+  background-color: #e98e6e;
+  color: var(--white);
+}
+
+.modal-content{
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.modal{
+  background-color: rgba(22,22,22,0.5);
+}
+

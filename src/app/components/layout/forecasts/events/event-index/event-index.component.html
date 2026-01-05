@@ -1,0 +1,63 @@
+<div class="container">
+  <app-back-button></app-back-button>
+  <h3 class="text-primary mx-auto text-center"><i class="fa-solid fa-pencil"></i>Add Event</h3>
+  <small id="forecastNumHelp" class="form-text text-muted text-center">You are currently updating a
+    forecast: {{forecastNum}}</small>
+  <small id="termHelp" class="form-text text-muted text-center">This event affects month {{term}}</small>
+  <div class="d-flex justify-content-center">
+    <div class="event-btns">
+      <div class="form-group mx-auto text-center my-4">
+        <Button class="btn btn-outline-primary btn-block" id="depositButton" (click)="displayDeposit()">
+          Deposit
+        </Button>
+      </div>
+      <div class="form-group mx-auto text-center my-4">
+        <button class="btn btn-outline-primary btn-block" id="withdrawalButton" (click)="displayWithdrawal()">
+          Withdrawal
+        </button>
+      </div>
+      <div class="form-group mx-auto text-center my-4">
+        <button class="btn btn-outline-primary btn-block" id="changeInterestButton" (click)="displayInterest()">
+          Change Interest
+        </button>
+      </div>
+      <div class="form-group mx-auto text-center my-4">
+        <button class="btn btn-outline-primary btn-block" id="increaseMonthlyButton" (click)="displayIncreaseMonthly()">
+          Increase Monthly {{monthlyAmountString}}
+        </button>
+      </div>
+      <div class="form-group mx-auto text-center my-4">
+        <a class="btn btn-outline-primary btn-block" id="changeMonthlyButton" (click)="displayChangeMonthly()">
+          Change Monthly {{monthlyAmountString}}
+        </a>
+      </div>
+    </div>
+    <ng-container *ngIf="doneLoading">
+      <div class="event-inputs">
+        <div class="w-100 my-4" [ngStyle]="{'display': depositDisplay}">
+          <app-deposit-event (addEvent)="addEvent($event)" [customerNum]="customerNum" [forecastNum]="forecastNum"
+                             [term]="term" [forecastRow]="forecastRow"></app-deposit-event>
+        </div>
+        <div class="w-100 my-4" [ngStyle]="{'display': withdrawalDisplay}">
+          <app-withdrawal-event (addEvent)="addEvent($event)" [customerNum]="customerNum" [forecastNum]="forecastNum"
+                                [term]="term" [forecastRow]="forecastRow"></app-withdrawal-event>
+        </div>
+        <div class="w-100 my-4" [ngStyle]="{'display': changeInterestDisplay}">
+          <app-change-interest-event (addEvent)="addEvent($event)" [customerNum]="customerNum"
+                                     [forecastNum]="forecastNum"
+                                     [term]="term" [forecastRow]="forecastRow"></app-change-interest-event>
+        </div>
+        <div class="w-100 my-4" [ngStyle]="{'display': increaseMonthlyDisplay}">
+          <app-increase-monthly-contribution-event (addEvent)="addEvent($event)" [customerNum]="customerNum"
+                                                   [forecastNum]="forecastNum" [term]="term"
+                                                   [forecastRow]="forecastRow"></app-increase-monthly-contribution-event>
+        </div>
+        <div class="w-100 my-4" [ngStyle]="{'display': changeMonthlyDisplay}">
+          <app-change-monthly-contribution-event (addEvent)="addEvent($event)" [customerNum]="customerNum"
+                                                 [forecastNum]="forecastNum" [term]="term"
+                                                 [forecastRow]="forecastRow"></app-change-monthly-contribution-event>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

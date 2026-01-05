@@ -1,0 +1,17 @@
+<div [formGroup]="changeMonthlyContributionForm" >
+  <div class="d-flex justify-content-center">
+    <h4 class="text-primary mx-auto">Change Monthly {{monthlyAmountString}}</h4>
+  </div>
+  <form id="newCustomerForm">
+    <div class="form-group">
+      <label>Change Monthly {{monthlyAmountString}}</label>
+      <input class="form-control input-style" placeholder="Enter the change amount" formControlName="amount"
+             [ngStyle]="{'border': (changeMonthlyContributionForm.controls['amount'].invalid && changeMonthlyContributionForm.controls['amount'].touched) ? '2px solid red' : ''}">
+      <small *ngIf="changeMonthlyContributionForm.controls['amount'].invalid && changeMonthlyContributionForm.controls['amount'].touched"
+             id="nameHelp" class="form-text text-muted text-red">Change must at least be between {{forecastRow.deposit.value}} and {{forecastRow.openingBalance.value}}</small>
+    </div>
+    <button type="submit" class="btn btn-outline-primary btn-block" (click)="onSubmit()"
+            [disabled]="changeMonthlyContributionForm.invalid">Submit</button>
+  </form>
+</div>
+
